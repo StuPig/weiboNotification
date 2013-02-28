@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>flush xiao bao's weibo</title>
+	<style>
+		body {
+			padding: 0 3px 9px 3px;
+			font-size: 14px;
+			line-height: 1.5em;
+			min-width: 300px;
+		}
+		section {
+			border-bottom: 1px solid #CCC;
+			box-shadow: 1px 1px 6px #333;
+			padding: 5px;
+			float: left;
+		}
+		img {
+			max-width: 60px;
+		}
+		.quote {
+			margin: 0 6px;
+			border: 1px dotted #AAA;
+			padding: 3px;
+		}
+		.date {
+			float: right;
+			color: #999;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+<script src="tmpl.js"></script>
+<script src="pop.js"></script>
+<script type="text/html" id="tweet">
+	<section>
+		<p><%= text %></p>
+		<% if (retweeted_status !== '') { %>
+			<div class="quote">
+				<p><%= retweeted_status.text %></p>
+				<p class="date"><%= new Date(retweeted_status.created_at).toLocaleString() %></p>
+				<% if (retweeted_status.original_pic !== '') {%>
+					<div><img src="<%= retweeted_status.original_pic %>"></div>
+				<% } %>	
+			</div>
+		<% } %>
+		<% if (original_pic !== '') {%>
+			<div><img src="<%= original_pic %>"></div>
+		<% } %>	
+		<p class="date"><%= new Date(created_at).toLocaleString()%></p>
+	</section>
+</script>
+</body>
+</html>

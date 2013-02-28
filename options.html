@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>设置</title>
+	<script src="options.js"></script>
+</head>
+<body>
+	<p><label for="hasNotify">开启桌面提醒</label><input type="checkbox" id="hasNotify" checked="checked" /></p>
+	<p><label for="uid">监听微博id</label><input type="text" id="uid" value="1670166522" /></p>
+	<p><label for="screenName">监听用户昵称</label><input placeholder="请输入用户昵称" type="text" id="screenName" value="" /><i>昵称和id都存在的情况下，优先使用id</i></p>
+	<p>
+		<label for="frequency">监听频率</label>
+		<select id="frequency" name="freq">
+			<option value="24000">24s</option>
+			<option value="60000">1min</option>
+			<option value="1800000">30min</option>
+			<option selected="selected" value="3600000">1h</option>
+			<option value="6400000">2h</option>
+		</select>
+	</p>
+	<p><label for="token">AppToken</label><input type="text" id="token" value="2.006KPOACjUi7wCd567db4818FgyfjB" /></p>
+</body>
+</html>
