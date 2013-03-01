@@ -65,33 +65,39 @@ function tweetFilter(data) {
 		content = '',
 		avatar = '',
 		count = 0,
-		lastTweetTime = LS.getItem('lastTweetTime') || 0;
+		lastTweetTime,
+		isInit = !LS.getItem('lastTweetTime');
 
 	data.statuses.forEach(function(tweet, index) {
-		var ts = new Date(tweet.created_at).valueOf()
+		var ts = new Date(tweet.created_at).valueOf(),
+			lastTweetTime = LS.getItem('lastTweetTime') || 0;
 
-		if (!LS.getItem('avatar')) {
+		if (isInit) {
 			avatar = tweet.user.profile_image_url
 			LS.setItem('avatar', avatar)
-		}
 
-		if (index === 0) {
-			LS.setItem('lastTweetTime', ts)
-		}
+			if (index === 0){
+				LS.setItem('lastTweetTime', ts)
+			}
 
-		if (ts > lastTweetTime) {
-			count++;
-		}
-
-		if (ts > lastTweetTime || !LS.getItem('lastTweets')) {
 			content += '\t' + tweet.text + '\n\r\n\r';
 			ret.push(tweet)
+
+		} else if (ts > lastTweetTime) {
+			++ count;
+			content += '\t' + tweet.text + '\n\r\n\r';
+			ret.unshift(tweet);
+
 			if (ret.length > 20) {
-				ret.shift()
+				ret.pop();
 			}
-			LS.setItem('lastTweets', JSON.stringify(ret))
+			LS.setItem('lastTweetTime', ts)
 		}
 	})
+
+	LS.setItem('lastTweets', JSON.stringify(ret))
+
+	isInit = false;
 
 	return {
 		tweets: ret,
