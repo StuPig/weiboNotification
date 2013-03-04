@@ -44,7 +44,7 @@ worker.onmessage = function(e) {
 
 function notify(data) {
 	var obj = tweetFilter(data);
-	var count = obj.tweets.length;
+	var count = obj.count;
 	var icon = obj.avatar,
 		title = '有' + count + '条新微博',
 		content = obj.content
@@ -84,6 +84,7 @@ function tweetFilter(data) {
 			ret.push(tweet)
 
 		} else if (ts > lastTweetTime) {
+			console.log('lastTweetTime -> ' + lastTweetTime + '  ts -> ' + ts);
 			++ count;
 			content += '\t' + tweet.text + '\n\r\n\r';
 			ret.unshift(tweet);
