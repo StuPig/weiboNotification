@@ -92,9 +92,11 @@ function tweetFilter(data) {
 			if (ret.length > 20) {
 				ret.pop();
 			}
-			LS.setItem('lastTweetTime', ts)
 		}
 	})
+
+	if (!isInit)
+		LS.setItem('lastTweetTime', new Date(data.statuses[0].created_at).valueOf())
 
 	LS.setItem('lastTweets', JSON.stringify(ret))
 
