@@ -68,6 +68,9 @@ function tweetFilter(data) {
 		lastTweetTime,
 		isInit = !LS.getItem('lastTweetTime');
 
+	if (!isInit)
+		data.statuses.reverse();
+
 	data.statuses.forEach(function(tweet, index) {
 		var ts = new Date(tweet.created_at).valueOf(),
 			lastTweetTime = LS.getItem('lastTweetTime') || 0;
