@@ -68,9 +68,6 @@ function tweetFilter(data) {
 		lastTweetTime,
 		isInit = !LS.getItem('lastTweetTime');
 
-	if (!isInit)
-		data.statuses.reverse();
-
 	data.statuses.forEach(function(tweet, index) {
 		var ts = new Date(tweet.created_at).valueOf(),
 			lastTweetTime = LS.getItem('lastTweetTime') || 0;
@@ -90,16 +87,13 @@ function tweetFilter(data) {
 			console.log('lastTweetTime -> ' + lastTweetTime + '  ts -> ' + ts);
 			++ count;
 			content += '\t' + tweet.text + '\n\r\n\r';
-			ret.unshift(tweet);
-
-			if (ret.length > 20) {
-				ret.pop();
-			}
 		}
 	})
 
-	if (!isInit)
+	if (!isInit) {
 		LS.setItem('lastTweetTime', new Date(data.statuses[0].created_at).valueOf())
+		ret = data.statuses;
+	}
 
 	LS.setItem('lastTweets', JSON.stringify(ret))
 
